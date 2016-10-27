@@ -10,15 +10,16 @@ using namespace std;
 class Automata
 {
  private:
+  unsigned int currentGen;
   unsigned int cellLimit;
   unsigned int genLimit;
   vector<bool> cells;
   unsigned int initCellLimit;
   unsigned int initGenLimit;
-  vector<bool> initialCells;
-  string rule;
-  string initRule;
-  
+  vector<bool> initCells;
+  bool rule[8];
+  bool initRule[8];
+ 
   //applies the rule to the current cell using its neigbours
   bool applyRule(bool prev, bool curr, bool next); 
 
@@ -30,7 +31,10 @@ class Automata
   Automata(vector<bool> newCells, unsigned int newCellLimit);
   void setRule(unsigned int rule);
   void seedCells(vector<bool> newCells);
+  void setCellLimit(unsigned int newCellLimit);
   void setGenLimit(unsigned int newGenLimit);
+  void startTime();
+  void stopTime();
   void reset();
   ~Automata();  
 };

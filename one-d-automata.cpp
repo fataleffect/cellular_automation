@@ -2,16 +2,36 @@
 #include <sstream>
 #include <algorithm>
 #include <iostream>
+#include <stdlib.h>
+#include <chrono>
+#include <thread>
 
 using namespace std;
 
 Automata::Automata()
 {
-  
+  currentGen = 1;
+  cellLimit = 80;
+  genLimit = 0;
+  rule[0] = 0;
+  rule[1] = 1;
+  rule[2] = 1;
+  rule[3] = 1;
+  rule[4] = 1;
+  rule[5] = 0;
+  rule[6] = 0;
+  rule[7] = 0;
+    
+  while(cells.size() < cellLimit)
+    {
+      cells.push_back(rand()%2);
+    }
 }
 
 Automata::Automata(vector<bool> newCells, unsigned int newCellLimit)
 {
+  currentGen = 1;
+  cellLimit = newCellLimit;
   cells = newCells;
 }
 
@@ -37,7 +57,10 @@ void Automata::setRule(unsigned int newRule)
   reverse(stringRule.begin(), stringRule.end());
 
   //store the reversed rule.
-  rule = stringRule;
+  for(string::iterator it = stringRule.end(); it != stringRule.begin(); it--)
+    {
+      rule[distance(stringRule.begin(), it)] = *it != '0';
+    }
 }
 
 void Automata::seedCells(vector<bool> newCells)
@@ -54,7 +77,7 @@ bool Automata::applyRule(bool prev, bool curr, bool next)
 
   //the decimal value of the concatenated booleans is equal to their index in the rule.
   unsigned int ruleToApply = stoul(concat.str(), NULL, 2);
-
+  //cout << "Prev: "<< prev <<"Curr: " << curr <<"Next: "<< next << " Rule is: " << concat.str()<< " Rule Index is: " << ruleToApply << " Rule Value is: " << rule[ruleToApply] << endl;
   //The value at the index of the rule array will become the state of the child cell
   return rule[ruleToApply];
 }
@@ -62,43 +85,69 @@ bool Automata::applyRule(bool prev, bool curr, bool next)
 void Automata::step(){
   vector<bool> newGen;
   //iterate from the beginning until the end of our vector.
+
   for(vector<bool>::iterator it = cells.begin(); it !=cells.end(); it++)
     {
       bool prev, curr, next;
-
       //wrap the first cell's previous neighbour to the last item in the vector
-      if(it != cells.begin())
-	prev = *it-1;
+      if(it == cells.begin())
+	{
+	  prev = cells.back();
+	}
       else
-	prev = *cells.end();
+	{
+	  prev = *(it-1);	  
+	}
       
       curr = *it;
       
       //wrap the last cell's next neighbour to the first in the vector
-      if(it != cells.end())
-	next = *it+1;
+      if(it != cells.end()-1)
+	{
+	  next = *(it+1);
+	}
       else
+	{
 	next = *cells.begin();
-
+	}
       //Push the result of applyRule to the back of our vector.
-      newGen.push_back(applyRule(prev, curr, next)); 
+      newGen.push_back(applyRule(prev, curr, next));
     }
+    //our new generation then becomes the current generation.
+  cells = newGen; 
+  currentGen++;
 
-  //our new generation then becomes the current generation.
-  cells = newGen;
+  //print the stuff
+  for (vector<bool>::iterator it = cells.begin(); it != cells.end(); it++)
+    {
+      //█ is 1, ░ is 0
+      string s = *it?"█":"░";
+      cout << s << ' ';
+    }
+  cout << endl;
 }
 
-Automata::setGenLimit(unsigned int newGenLimit)
+void Automata::setGenLimit(unsigned int newGenLimit)
 {
-  genlimit = newGenLimit;
+  genLimit = newGenLimit;
 }
 
-Automata::setCellLimit(unsigned int newCellLimit)
+void Automata::setCellLimit(unsigned int newCellLimit)
 {
   cellLimit = newCellLimit;
 }
 
-Automata::reset()
+void Automata::startTime()
+{
+  while (currentGen != genLimit)
+    {
+      chrono::milliseconds timespan(500);
+      step();
+      this_thread::sleep_for(timespan);
+    }
+}
+
+void Automata::reset()
 {
   cellLimit = initCellLimit;
   genLimit = initGenLimit;
@@ -113,5 +162,7 @@ Automata::~Automata()
 int main()
 {
   Automata autom = Automata();
+
+  autom.startTime();
 }
 
