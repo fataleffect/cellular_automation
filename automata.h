@@ -35,6 +35,7 @@ class Automata
   void setGenLimit(unsigned int newGenLimit);
   void startTime();
   void stopTime();
+  void menu();
   void reset();
   ~Automata();  
 };
