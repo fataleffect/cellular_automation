@@ -28,7 +28,7 @@ class Automata
   
  public:
   Automata();
-  Automata(vector<bool> newCells, unsigned int newCellLimit);
+  Automata(vector<bool> newCells, unsigned int newCellLimit, unsigned int newGenLimit);
   void setRule(unsigned int rule);
   void seedCells(vector<bool> newCells);
   void setCellLimit(unsigned int newCellLimit);
