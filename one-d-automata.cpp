@@ -184,6 +184,57 @@ void Automata::reset()
   cells = initCells; 
 }
 
+void Automata::menu()
+{
+	int selection;
+	do 
+	{
+		cout << "\033[2J\033[1;1H";
+		cout << "========================================\n";
+		cout << "WELCOME TO THE CELLULAR AUTOMATA PROGRAM\n";
+		cout << "========================================\n";
+		cout << "\n";
+		cout << "Please chooose a menu option:\n";
+		cout << "1 - Start the cellular automata\n";
+		cout << "2 - Convert a binary value to a decimal number\n";
+		cout << "3 - Load a cellular automata from a save file\n";
+		cout << "0 - Quit\n";
+		cout << "\n";
+		cout << "========================================\n";
+		cin >> selection;
+		switch (selection) 
+		{
+			case 1:
+			startTime();
+			cout << "\n";
+			cout << "Please press Enter to continue.\n";
+			cin.ignore();
+			break;
+
+			case 2:
+			cout << "\n";
+			cout << "Please press Enter to continue.\n";
+			cin.ignore();
+			break;
+
+			case 3:
+			cout << "\n";
+			cout << "Please press Enter to continue.\n";
+			cin.ignore();
+			break;
+
+			case 0:
+			cout << "Goodbye!\n";
+			cin.ignore();
+			break;
+
+			default:
+			cout << selection << "is not a valid menu selection!\n";
+		}
+	} while (selection != 0);
+
+} 
+
 Automata::~Automata()
 {
   
@@ -195,6 +246,6 @@ int main()
 
   Automata autom = Automata();
 
-  autom.startTime();
+  autom.menu();
 }
 
