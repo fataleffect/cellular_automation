@@ -21,17 +21,45 @@ Automata::Automata()
   rule[5] = 0;
   rule[6] = 0;
   rule[7] = 0;
-    
+
+  //While the vector is smaller than the cell limit 
+  while(cells.size() < (cellLimit/2))
+    {
+      cells.push_back(0);
+      //cells.push_back(rand()%2);
+    }
+
+  cells.push_back(1);
+  
   while(cells.size() < cellLimit)
     {
-      cells.push_back(rand()%2);
+      cells.push_back(0);
+      //cells.push_back(rand()%2);
     }
+  
+  initCellLimit = 80;
+  initGenLimit = 0;
+  initCells = cells;
+
+   for (vector<bool>::iterator it = cells.begin(); it != cells.end(); it++)
+    {
+      //█ is 1, ░ is 0
+      string s = *it?"█":"░";
+      cout << s << ' ';
+    }
+  cout << endl;
 }
 
-Automata::Automata(vector<bool> newCells, unsigned int newCellLimit)
+Automata::Automata(vector<bool> newCells, unsigned int newCellLimit, unsigned int newGenLimit)
 {
   currentGen = 1;
+
+  initCellLimit = newCellLimit;
+  initGenLimit = newGenLimit;
+  initCells = newCells;
+
   cellLimit = newCellLimit;
+  genLimit = newGenLimit;
   cells = newCells;
 }
 
@@ -61,6 +89,7 @@ void Automata::setRule(unsigned int newRule)
     {
       rule[distance(stringRule.begin(), it)] = *it != '0';
     }
+  
 }
 
 void Automata::seedCells(vector<bool> newCells)
@@ -139,7 +168,8 @@ void Automata::setCellLimit(unsigned int newCellLimit)
 
 void Automata::startTime()
 {
-  while (currentGen != genLimit)
+  //if the genlimit is 0 run forever, otherwise run until we hit the genlimit
+  while (genLimit == 0 || currentGen != genLimit)
     {
       chrono::milliseconds timespan(500);
       step();
@@ -161,6 +191,8 @@ Automata::~Automata()
 
 int main()
 {
+  srand(time(NULL));
+
   Automata autom = Automata();
 
   autom.startTime();
