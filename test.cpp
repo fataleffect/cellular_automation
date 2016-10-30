@@ -40,39 +40,88 @@ int main() {
     	cout << parent[i];
 	}
 	cout << "\n";
-
+	cout << "\n";
 	cout << "combining the ruleset with the parent generation...\n";
 	cout << "\n";
-	while(true) {
-		int i = 0;
-		next[0] = parent[i];
-		i++;
-		next[1] = parent[i];
-		i++;
-		next[2] = parent[i];
+	
 
-		if(next[0] == 1 && next[1] == 1 && next[2] == 1) {
-			child[] = ruleset[];
+	child[0] = 0;
+
+	for (int a = 0; a < 30; a++) {
+		if(parent[a] == 1) {
+			cout << "█";
 		}
-		if(next[0] == 1 && next[1] == 1 && next[2] == 0) {
-			
+		if(parent[a] == 0) {
+			cout << "░";
 		}
-		if(next[0] == 1 && next[1] == 0 && next[2] == 1) {
-			
+	}
+	cout << "\n";
+
+	for(int size = 0; size < 10; size++) {
+		int x = 0;
+		int y = 1;
+		while(y < 29) {
+			next[0] = parent[x];
+			x++;
+			next[1] = parent[x];
+			x++;
+			next[2] = parent[x];
+
+			/*cout << "next array:\n";
+			for (int a = 0; a < 3; a++) {
+			    cout << next[a];
+			}*/
+
+			if(next[0] == 1 && next[1] == 1 && next[2] == 1) {
+				child[y] = ruleset[0];
+			}
+			if(next[0] == 1 && next[1] == 1 && next[2] == 0) {
+				child[y] = ruleset[1];
+			}
+			if(next[0] == 1 && next[1] == 0 && next[2] == 1) {
+				child[y] = ruleset[2];
+			}
+			if(next[0] == 1 && next[1] == 0 && next[2] == 0) {
+				child[y] = ruleset[3];
+			}
+			if(next[0] == 0 && next[1] == 1 && next[2] == 1) {
+				child[y] = ruleset[4];
+			}
+			if(next[0] == 0 && next[1] == 1 && next[2] == 0) {
+				child[y] = ruleset[5];
+			}
+			if(next[0] == 0 && next[1] == 0 && next[2] == 1) {
+				child[y] = ruleset[6];
+			}
+			if(next[0] == 0 && next[1] == 0 && next[2] == 0) {
+				child[y] = ruleset[7];
+			}
+			x--;
+			y++;
 		}
-		if(next[0] == 1 && next[1] == 0 && next[2] == 0) {
-			
+		
+		for (int a = 0; a < 30; a++) {
+			if(child[a] == 1) {
+			cout << "█";
+			}
+			if(child[a] == 0) {
+				cout << "░";
+			}
 		}
-		if(next[0] == 0 && next[1] == 1 && next[2] == 1) {
-			
-		}
-		if(next[0] == 0 && next[1] == 1 && next[2] == 0) {
-			
-		}
-		if(next[0] == 0 && next[1] == 0 && next[2] == 0) {
-			
+		cout << "\n";
+
+		for (int a = 0; a < 30; a++) {
+			parent[a] = child[a];
 		}
 	}
 
 	return 0;
 }
+
+/*for (int b = 29; b >= 0; b--) {
+	child[b] = parent[b];
+}*/
+
+/*for (int a = 0; a < 30; a++) {
+				child[a] = 0;
+			}*/
