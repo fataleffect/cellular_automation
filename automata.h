@@ -13,6 +13,7 @@ class Automata
   unsigned int currentGen;
   unsigned int cellLimit;
   unsigned int genLimit;
+  unsigned int ruleSet;
   vector<bool> cells;
   unsigned int initCellLimit;
   unsigned int initGenLimit;
@@ -36,6 +37,8 @@ class Automata
   void startTime();
   void stopTime();
   void menu();
+  void initialise();
+  void createRuleSet();
   void reset();
   ~Automata();  
 };
