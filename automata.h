@@ -14,6 +14,7 @@ class Automata
   unsigned int cellLimit;
   unsigned int genLimit;
   unsigned int ruleSet;
+  string fileName;
   vector<bool> cells;
   unsigned int initCellLimit;
   unsigned int initGenLimit;
@@ -25,7 +26,7 @@ class Automata
   bool applyRule(bool prev, bool curr, bool next); 
 
   //generates the next generation of cells.
-  void step();
+  void step(bool saveAutomata);
   
  public:
   Automata();
@@ -34,12 +35,14 @@ class Automata
   void seedCells(vector<bool> newCells);
   void setCellLimit(unsigned int newCellLimit);
   void setGenLimit(unsigned int newGenLimit);
-  void startTime();
+  void startTime(bool saveAutomata);
   void stopTime();
   void menu();
   void initialise();
   void createRuleSet();
+  void createFile();
   void convertBinary();
+  void readFile();
   void reset();
   ~Automata();  
 };
