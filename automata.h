@@ -30,7 +30,7 @@ class Automata
  public:
   Automata();
   Automata(vector<bool> newCells, unsigned int newCellLimit, unsigned int newGenLimit);
-  void setRule(unsigned int rule);
+  void setRule(string rule);
   void seedCells(vector<bool> newCells);
   void setCellLimit(unsigned int newCellLimit);
   void setGenLimit(unsigned int newGenLimit);

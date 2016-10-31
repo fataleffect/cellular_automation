@@ -46,7 +46,7 @@ Automata::Automata()
 
 Automata::Automata(vector<bool> newCells, unsigned int newCellLimit, unsigned int newGenLimit)
 {
-  currentGen = 1;
+  currentGen = 0;
 
   initCellLimit = newCellLimit;
   initGenLimit = newGenLimit;
@@ -58,10 +58,10 @@ Automata::Automata(vector<bool> newCells, unsigned int newCellLimit, unsigned in
 }
 
 //Sets the binary rule for future generations of the automaton.
-void Automata::setRule(unsigned int newRule)
+void Automata::setRule(string newRule)
 {
   //Convert to a string
-  string stringRule = to_string(newRule);
+  string stringRule = newRule;
 
   //Left pad to 8 bits.
   while (stringRule.length() < 8)
@@ -163,7 +163,7 @@ void Automata::setCellLimit(unsigned int newCellLimit)
  void Automata::startTime()
 {
   //if this is the first time we called start time print the first generation
-  if(currentGen == 1)
+  if(currentGen == 0)
     {
       for (vector<bool>::iterator it = cells.begin(); it != cells.end(); it++)
 	{
@@ -208,6 +208,7 @@ void Automata::createRuleSet()
 	cin >> ruleSet;
 	std::string binary = std::bitset<8>(ruleSet).to_string(); 
 	cout << binary;
+	setRule(binary);
 	cout << "\n";
 	cout << "this is the ruleset:\n";
 	for (int i = 0; i < 8; i++) {
