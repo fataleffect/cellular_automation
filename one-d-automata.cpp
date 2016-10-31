@@ -5,14 +5,16 @@
 #include <stdlib.h>
 #include <chrono>
 #include <thread>
+#include <bitset>
 
 using namespace std;
 
 Automata::Automata()
 {
-  currentGen = 1;
-  cellLimit = 80;
+  currentGen = 0;
+  cellLimit = 40;
   genLimit = 0;
+  ruleSet = 0;
   rule[0] = 0;
   rule[1] = 1;
   rule[2] = 1;
@@ -184,17 +186,43 @@ void Automata::reset()
   cells = initCells; 
 }
 
+void Automata::initialise() 
+{
+	cout << "Please make sure to maximise the size of your terminal window to ensure readable output!\n";
+	cout << "Select the parameters for the cellular automata.\n";
+	cout << "Cell limit per generation:\n";
+  	cin >> cellLimit;
+  	cout << "Generation limit:\n";
+  	cin >> genLimit;
+  	cout << "Rule set:\n";
+  	createRuleSet();
+	startTime();
+}
+
+void Automata::createRuleSet()
+{
+	cin >> ruleSet;
+	std::string binary = std::bitset<8>(ruleSet).to_string(); 
+	cout << binary;
+	cout << "\n";
+	cout << "this is the ruleset:\n";
+	for (int i = 0; i < 8; i++) {
+    	cout << rule[i];
+	}
+	cout << "\n";
+}
+
 void Automata::menu()
 {
 	int selection;
+	cout << "\033[2J\033[1;1H";
 	do 
 	{
-		cout << "\033[2J\033[1;1H";
 		cout << "========================================\n";
 		cout << "WELCOME TO THE CELLULAR AUTOMATA PROGRAM\n";
 		cout << "========================================\n";
 		cout << "\n";
-		cout << "Please chooose a menu option:\n";
+		cout << "Please choose a menu option:\n";
 		cout << "1 - Start the cellular automata\n";
 		cout << "2 - Convert a binary value to a decimal number\n";
 		cout << "3 - Load a cellular automata from a save file\n";
@@ -205,27 +233,35 @@ void Automata::menu()
 		switch (selection) 
 		{
 			case 1:
-			startTime();
+			initialise();
 			cout << "\n";
 			cout << "Please press Enter to continue.\n";
-			cin.ignore();
+			while(getchar()!='\n'); 
+        	getchar(); 
+        	cout << "\033[2J\033[1;1H";
 			break;
 
 			case 2:
 			cout << "\n";
 			cout << "Please press Enter to continue.\n";
-			cin.ignore();
+			while(getchar()!='\n'); 
+        	getchar();
+        	cout << "\033[2J\033[1;1H";
 			break;
 
 			case 3:
 			cout << "\n";
 			cout << "Please press Enter to continue.\n";
-			cin.ignore();
+			while(getchar()!='\n');
+        	getchar();
+        	cout << "\033[2J\033[1;1H";
 			break;
 
 			case 0:
 			cout << "Goodbye!\n";
-			cin.ignore();
+			while(getchar()!='\n'); 
+        	getchar(); 
+        	cout << "\033[2J\033[1;1H";
 			break;
 
 			default:
