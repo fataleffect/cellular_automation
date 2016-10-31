@@ -40,14 +40,6 @@ Automata::Automata()
   initCellLimit = 80;
   initGenLimit = 0;
   initCells = cells;
-
-   for (vector<bool>::iterator it = cells.begin(); it != cells.end(); it++)
-    {
-      //█ is 1, ░ is 0
-      string s = *it?"█":"░";
-      cout << s << ' ';
-    }
-  cout << endl;
 }
 
 Automata::Automata(vector<bool> newCells, unsigned int newCellLimit, unsigned int newGenLimit)
@@ -166,8 +158,20 @@ void Automata::setCellLimit(unsigned int newCellLimit)
   cellLimit = newCellLimit;
 }
 
-void Automata::startTime()
+ void Automata::startTime()
 {
+  //if this is the first time we called start time print the first generation
+  if(currentGen == 1)
+    {
+      for (vector<bool>::iterator it = cells.begin(); it != cells.end(); it++)
+	{
+	  //█ is 1, ░ is 0
+	  string s = *it?"█":"░";
+	  cout << s << ' ';
+	}
+      cout << endl;
+    }
+  
   //if the genlimit is 0 run forever, otherwise run until we hit the genlimit
   while (genLimit == 0 || currentGen != genLimit)
     {
