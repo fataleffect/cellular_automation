@@ -39,6 +39,7 @@ class Automata
   void menu();
   void initialise();
   void createRuleSet();
+  void convertBinary();
   void reset();
   ~Automata();  
 };

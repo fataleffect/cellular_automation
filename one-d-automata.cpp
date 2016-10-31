@@ -216,15 +216,24 @@ void Automata::createRuleSet()
 	cout << "\n";
 }
 
+void Automata::convertBinary()
+{
+	int binary;
+	cout << "Please enter the binary value you would like to convert to a decimal number:\n";
+	cin >> binary;
+	unsigned long decimal = std::bitset<8>(binary).to_ulong();
+	std::cout<< decimal <<" is the decimal conversion of the binary value.\n";
+}
+
 void Automata::menu()
 {
 	int selection;
 	cout << "\033[2J\033[1;1H";
 	do 
 	{
-		cout << "========================================\n";
-		cout << "WELCOME TO THE CELLULAR AUTOMATA PROGRAM\n";
-		cout << "========================================\n";
+		cout << "============================================\n";
+		cout << "  WELCOME TO THE CELLULAR AUTOMATA PROGRAM  \n";
+		cout << "============================================\n";
 		cout << "\n";
 		cout << "Please choose a menu option:\n";
 		cout << "1 - Start the cellular automata\n";
@@ -246,6 +255,7 @@ void Automata::menu()
 			break;
 
 			case 2:
+			convertBinary();
 			cout << "\n";
 			cout << "Please press Enter to continue.\n";
 			while(getchar()!='\n'); 
