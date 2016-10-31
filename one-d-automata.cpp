@@ -208,6 +208,10 @@ void Automata::createRuleSet()
 	cin >> ruleSet;
 	std::string binary = std::bitset<8>(ruleSet).to_string(); 
 	cout << binary;
+	for (int i = 0; i < 8; i++)
+	{
+		rule[i] = binary[i] - '0';
+	}
 	cout << "\n";
 	cout << "this is the ruleset:\n";
 	for (int i = 0; i < 8; i++) {
