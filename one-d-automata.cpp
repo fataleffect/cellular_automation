@@ -100,7 +100,7 @@ bool Automata::applyRule(bool prev, bool curr, bool next)
 
   //the decimal value of the concatenated booleans is equal to their index in the rule.
   unsigned int ruleToApply = stoul(concat.str(), NULL, 2);
-  //cout << "Prev: "<< prev <<"Curr: " << curr <<"Next: "<< next << " Rule is: " << concat.str()<< " Rule Index is: " << ruleToApply << " Rule Value is: " << rule[ruleToApply] << endl;
+  
   //The value at the index of the rule array will become the state of the child cell
   return rule[ruleToApply];
 }
